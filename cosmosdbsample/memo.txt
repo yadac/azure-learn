@@ -1,0 +1,33 @@
+https://docs.microsoft.com/ja-jp/learn/modules/access-data-with-cosmos-db-and-sql-api/
+
+# Azure サブスクリプション確認
+az account list --output table
+
+# 使用するAzure　サブスクリプション指定
+az account set --subscription "<subscription name>"
+
+# リソースグループ確認
+az group list --out table
+
+# 変数定義と代入
+#export NAME="<Azure Cosmos DB account name>"
+export NAME="yacosmos-201903172158"
+export RESOURCE_GROUP="a16f7215-4ebd-4030-9aa9-12e0905ddf12"
+export LOCATION="japaneast"
+export DB_NAME="Products"
+export COLLECTION_NAME="Clothing"
+
+# Azure Cosmos DBアカウントの作成
+az cosmosdb create --name $NAME --kind GlobalDocumentDB --resource-group $RESOURCE_GROUP
+
+# データベース作成
+az cosmosdb database create --name $NAME --db-name $DB_NAME --resource-group $RESOURCE_GROUP
+
+# コレクション作成
+az cosmosdb collection create --collection-name $COLLECTION_NAME --partition-key-path "/productId" --throughput 1000 --name $NAME --db-name $DB_NAME --resource-group $RESOURCE_GROUP
+
+
+select * from c
+これは何で成立するのか？cはキーワード？コレクションが複数あった場合にも成立するのか？
+select c.id, c.productId, c.price, udf.producttax(c.price) as producttax from c
+udfはキーワード？
