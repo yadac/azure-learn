@@ -1,0 +1,20 @@
+#.net core cli
+#https://msdn.microsoft.com/ja-jp/magazine/mt842506.aspx
+dotnet new console -o hello
+dotnet new classlib -o logic
+dotnet add reference ../logic/logic.csproj
+dotnet new xunit -o tests
+dotnet new web -o web
+dotnet new sln -n HelloWorld
+dotnet add package Huitian.PowerCollections
+
+# -fi = file, -rec = recursive, % = foreach (man %)
+ls -fi *.csproj -rec | % { dotnet sln add $_.fullname }
+
+# get-help = man
+man ls -online
+
+# target library coreapp => frameworkŽ©“®“Ç‚Ý‘Ö‚¦ NU1701 Warning
+
+
+
